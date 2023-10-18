@@ -33,7 +33,7 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     const coffeeCollection = client.db("coffeeDB").collection("coffee");
-    
+    const userCollection =client.db("coffeDB").collection("user")
 
 app.get("/coffee",async(req,res)=>{
   const cursor=coffeeCollection.find()
@@ -56,6 +56,9 @@ app.get("/coffee/:id",async (req,res)=>{
       const result = await coffeeCollection.insertOne(newCoffee);
       res.send(result)
      })
+
+     
+
 
      app.put('/coffee/:id', async(req, res) => {
       const id = req.params.id;
@@ -87,6 +90,16 @@ app.delete("/coffee/:id",async (req,res)=>{
   const result =await coffeeCollection.deleteOne(query)
   res.send(result)
 })
+
+// user releted api
+app.post("/user",async(req,res)=>{
+  const user=req.body
+  const result = await userCollection.insertOne(user);
+  res.send(result)
+ })
+
+
+
 
     
     // Send a ping to confirm a successful connection
